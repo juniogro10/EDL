@@ -41,6 +41,7 @@ Comando         | Significado
 * **Abstração** : COBOL não dá suporte, logo, não tem como avaliar.
 # Avaliação Comparativa
 
+* Expressividade em relação ao Php ,a linguagem cobol oferece uma série de dificuldade para programadores.Na leitura e na escrita não é expressivo pois a forma de escrever é rígida e não é intuitiva.Veja a seguir o código comparando as duas linguagens:
 
 Em **Php**:
 ```
