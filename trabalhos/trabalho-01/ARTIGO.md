@@ -45,6 +45,7 @@ Comando         | Significado
 
 Em **Php**:
 ```
+<?php
 $count = 1;
 
 while($count < 10) 
@@ -52,19 +53,24 @@ while($count < 10)
 echo ‘Count :’ . $count;	
 $count+=1;
 }
+?>
 ```
 Agora sendo feito em **Cobol** :
 ```
-01 COUNT PIC 9(2)  VALUE  '1'.
+IDENTIFICATION DIVISION.
+PROGRAM-ID. HELLO.
+
+DATA DIVISION.
+   WORKING-STORAGE SECTION.
+   01 WS-Contador PIC 9(2) VALUE '1'.
 
 PROCEDURE DIVISION.
    A-PARA.
-   PERFORM B-PARA WITH TEST AFTER UNTIL COUNT>9.
+  PERFORM B-PARA VARYING WS-Contador FROM 1 BY 1 UNTIL WS-Contador=10
    STOP RUN.
    
    B-PARA.
-   DISPLAY 'COUNT: 'COUNT.
-   ADD 1 TO COUNT.
+   DISPLAY 'Count: 'WS-Contador.
 ```
 
 Para o indexador de um tabela em cobol , o indexador não pode ser inicializada por 0.
@@ -82,11 +88,18 @@ Count :7
 Count :8
 Count :9
 ```
-Sendo assim **PHP** é muito mais  prático a leitura do que o **COBOL**. 
+
+***Readability**:
+Quanto a readability, **Cobol** ganha devido à tipagem estática, onde o tipo de conteúdo é bem controlado,sendo a declaração de variável com tendo uma localização imediata, comparado com **PHP** o nivel de facilidade de localização é parecido por causa do ‘$’ na frente da variável.  
+***Writeability**:
+Analisando a writeability, é claro que o **PHP** é bem mais simplificado, utilizando menos linhas de código. Sendo de tipagem dinâmica, onde a digitação de muitos caracteres é economizada já que não é preciso definir tipos para as variáveis.A entrada e saída possuem writeablity parecida nas duas linguagem.  
+***Expressividade:**
+Cobol mesmo sendo um linguagem feito para ter uma codificação simples apresenta uma rigidez na sua escrita e a intuitividade menos presente do que no PHP.
+Fazendo uma comparação entre as duas linguagens o PHP possui uma expressividade mais presente.Como apresentado acima.  
 
 # Conclusão
 
-Tradicionalmente a COBOL é uma linguagem simples, com alcance limitado da função (sem ponteiros, sem tipos definidos pelo usuário e sem funções definidas pelo usuário) estimulando um estilo de codificação simples. Isso fez com que seja bem adequada ao seu domínio principal de computação de negócios, onde a complexidade do programa encontra-se em regras de negócio que precisam ser codificados em vez de sofisticados algoritmos e estruturas de dados.
+Tradicionalmente a COBOL é uma linguagem simples, estimulando um estilo de codificação simples. Isso fez com que seja bem adequada ao seu domínio principal de computação de negócios, onde a complexidade do programa encontra-se em regras de negócio que precisam ser codificados em vez de sofisticados algoritmos e estruturas de dados.
 Porém a leitura da linguagem é complexa, não é possível saber o que o programa está fazendo sem ter uma grande prática com a linguagem e conhecimento da documentação.
 Somente um bom conhecimento da documentação não basta, ainda sim é difícil escrever o código pois são muito detalhes a lembrar. 
 
