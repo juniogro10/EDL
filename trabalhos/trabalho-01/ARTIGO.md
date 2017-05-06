@@ -37,11 +37,14 @@ Comando         | Significado
  PIC 9 (2) | Nomeclatura de uma variável do tipo inteiro com 2 posições
  Value     | Inserindo o valor 10 na variável   
 
+- Paradigmas: 
+	- Procedural
+	- Imperativa
+	- Orientada a Objetos : Adicionado somente a partir da versão COBOL 2002,lançado no ano de 2002. 
 
-* **Abstração** : COBOL não dá suporte, logo, não tem como avaliar.
 # Avaliação Comparativa
 
-* Expressividade em relação ao Php ,a linguagem cobol oferece uma série de dificuldade para programadores.Na leitura e na escrita não é expressivo pois a forma de escrever é rígida e não é intuitiva.Veja a seguir o código comparando as duas linguagens:
+
 
 Em **Php**:
 ```
@@ -89,14 +92,13 @@ Count :8
 Count :9
 ```
 
+
 ***Readability**:
-Quanto a readability, **Cobol** ganha devido à tipagem estática, onde o tipo de conteúdo é bem controlado,sendo a declaração de variável com tendo uma localização imediata, comparado com **PHP** o nivel de facilidade de localização é parecido por causa do ‘$’ na frente da variável.  
+Quanto a readability, **Cobol** ganha devido à tipagem estática, onde o tipo de conteúdo é bem controlado,sendo a declaração de variável com tendo uma localização imediata, comparado com **PHP** o nível de facilidade de localização é parecido por causa do ‘$’ na frente da variável.  
 ***Writeability**:
 Analisando a writeability, é claro que o **PHP** é bem mais simplificado, utilizando menos linhas de código. Sendo de tipagem dinâmica, onde a digitação de muitos caracteres é economizada já que não é preciso definir tipos para as variáveis.A entrada e saída possuem writeablity parecida nas duas linguagem.  
 ***Expressividade:**
-Cobol mesmo sendo um linguagem feito para ter uma codificação simples apresenta uma rigidez na sua escrita e a intuitividade menos presente do que no PHP.
-Fazendo uma comparação entre as duas linguagens o PHP possui uma expressividade mais presente.Como apresentado acima.  
-
+Nas últimas versões de cobol  a expressividade entre php ficaram muito próxima ,sendo possível realizar ações parecida na duas linguagens mesmo sendo com foco diferente, a escolha de qual é mais expressiva fica por parte do programador.  
 # Conclusão
 
 Tradicionalmente a COBOL é uma linguagem simples, estimulando um estilo de codificação simples. Isso fez com que seja bem adequada ao seu domínio principal de computação de negócios, onde a complexidade do programa encontra-se em regras de negócio que precisam ser codificados em vez de sofisticados algoritmos e estruturas de dados.
