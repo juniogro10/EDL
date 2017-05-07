@@ -109,6 +109,7 @@ Somente um bom conhecimento da documentação não basta, ainda sim é difícil 
 
 # Bibliografia
 
+* Cobol compilador online - https://www.tutorialspoint.com/compile_cobol_online.php
 * Cobol Wikipédia - https://pt.wikipedia.org/wiki/COBOL
 * Cobol Ainda esta viva DevMedia - http://www.devmedia.com.br/cobol-uma-linguagem-que-ainda-esta-viva/24585
 * Cobol Point - https://www.tutorialspoint.com/pg/cobol/cobol_data_types.htm
