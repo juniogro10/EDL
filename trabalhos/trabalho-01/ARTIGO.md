@@ -97,8 +97,22 @@ Count :9
 Quanto a readability, **Cobol** ganha devido à tipagem estática, onde o tipo de conteúdo é bem controlado,sendo a declaração de variável com tendo uma localização imediata, comparado com **PHP** o nível de facilidade de localização é parecido por causa do ‘$’ na frente da variável.  
 ***Writeability**:
 Analisando a writeability, é claro que o **PHP** é bem mais simplificado, utilizando menos linhas de código. Sendo de tipagem dinâmica, onde a digitação de muitos caracteres é economizada já que não é preciso definir tipos para as variáveis.A entrada e saída possuem writeablity parecida nas duas linguagem.  
+
 ***Expressividade:**
-Nas últimas versões de cobol  a expressividade entre php ficaram muito próxima ,sendo possível realizar ações parecida na duas linguagens mesmo sendo com foco diferente, a escolha de qual é mais expressiva fica por parte do programador.  
+Exemplo de closure em **PHP**.
+```
+function createGreeter($who) {
+              return function() use ($who) {
+                  echo "Hello $who";
+              };
+}
+
+$greeter = createGreeter("World");
+$greeter(); // Hello World
+```
+
+O **PHP** possuí closure , tipagem dinámica e type hinting em funções com isso fica claro que o php é mais expressivo em relação ao COBOL.
+
 # Conclusão
 
 Tradicionalmente a COBOL é uma linguagem simples, estimulando um estilo de codificação simples. Isso fez com que seja bem adequada ao seu domínio principal de computação de negócios, onde a complexidade do programa encontra-se em regras de negócio que precisam ser codificados em vez de sofisticados algoritmos e estruturas de dados.
