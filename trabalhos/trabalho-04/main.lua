@@ -2,6 +2,7 @@ screenWidth = love.graphics.getWidth()
 screenHeight = love.graphics.getHeight()
 
 
+--Trabalho 05
 	-- Nome: default_block_size
   -- Binding time: compilação
   -- Propriedade: endereco
@@ -149,6 +150,7 @@ function love.load ()
 
   -- Adiciona um bloco ao Jogador.
   function playerAddBlock(x,y)
+    --Trabalho 05
       -- Nome: x
       -- Binding time: Execução
       -- Propriedade: endereco
@@ -169,6 +171,7 @@ function love.load ()
 
     return new_block
 
+    --Trabalho 05
       -- Nome: then
       -- Binding time: desing
       -- Propriedade: semantica
@@ -190,6 +193,7 @@ function love.load ()
   -- Ativa o modo gameOver no Jogo.
   function gameOver()
 
+    --Trabalho 05
     	-- Nome: then
     	-- Binding time: desing
       -- Propriedade: semantica
@@ -199,6 +203,7 @@ function love.load ()
       love.audio.play( sound_gameover )
       gameover = true
       player_movement_speed = 0
+      --Trabalho 05
         -- Nome: player_movement_speed
         -- Binding time: execução
         -- Propriedade: valor
@@ -219,6 +224,7 @@ function love.load ()
   -- Jogador colidindo com as paredes.
   function playerWallCollision ()
 
+    --Trabalho 05
     	-- Nome: '-'
       -- Binding time: compilação
       -- Propriedade: semantica
