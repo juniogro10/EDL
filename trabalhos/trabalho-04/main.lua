@@ -1,6 +1,12 @@
 screenWidth = love.graphics.getWidth()
 screenHeight = love.graphics.getHeight()
 
+
+	-- Nome: default_block_size
+  -- Binding time: compilação
+  -- Propriedade: endereco
+	-- Explicação: Sendo uma variavel global ,seu endereco é alocando em tempo de compilação
+
 -- Tamanho padrão dos Blocos.
 default_block_size = 20
 
@@ -15,7 +21,7 @@ debug = false
 
 -- Variavel splashscreen
 local splash
-local o_ten_one = require "o-ten-one"
+o_ten_one = require "o-ten-one"
 
 -- Flag de Carregamento
 loading = true
@@ -31,6 +37,8 @@ function love.load ()
 
   -- Sons do Jogo.
   sound_eating =  love.audio.newSource("eating.wav", "static")
+
+  -- Trabalho 06: Enumeracao
   sound_gameover = love.audio.newSource("gameover.wav", "static")
 
   -- Inicializa a Cor do Cenário
@@ -40,6 +48,7 @@ function love.load ()
   love.graphics.setColor(0,0, 0)
 
   -- Define os limites do cenário na tela. ( Xi , Yi )
+  -- Trabalho 06: Registro
   scenarioLimits = {
     10,20,
     10,screenHeight-10,
@@ -68,6 +77,7 @@ function love.load ()
       size = 0,
       speed = 1400,
       gap = 1,
+      -- Trabalho 06: Array
       blocks = {}
     }
   }
@@ -139,6 +149,10 @@ function love.load ()
 
   -- Adiciona um bloco ao Jogador.
   function playerAddBlock(x,y)
+      -- Nome: x
+      -- Binding time: Execução
+      -- Propriedade: endereco
+      -- Explicação: Por ser um varievel local , tendo o seu  escopo limitado a playerAddBlock.Seu endereço somente é definido em tempo execução
 
     -- Estrutura do Novo Bloco.
     new_block = {
@@ -150,9 +164,16 @@ function love.load ()
 
     player.body.size = player.body.size + 1
 
+
     print("Criei Corpo no Player! : " .. tostring(player.body.size) .. "    x: " .. tostring(new_block.pos.x) .. "    y: " .. tostring(new_block.pos.y))
 
     return new_block
+
+      -- Nome: then
+      -- Binding time: desing
+      -- Propriedade: semantica
+      -- Explicação: Como sendo uma palavra reservada na linguagem para execução de retorno de função .  Então é deifinido no tempo de desing da linguagem
+
 
   end
 
@@ -169,10 +190,19 @@ function love.load ()
   -- Ativa o modo gameOver no Jogo.
   function gameOver()
 
+    	-- Nome: then
+    	-- Binding time: desing
+      -- Propriedade: semantica
+    	-- Explicação: Definida durante a implementação da linguaguem como palavra reservada , definicido inicio de bloco de instrução. Então é deifinido no tempo de desing da linguagem
+
     if not gameover then
       love.audio.play( sound_gameover )
       gameover = true
       player_movement_speed = 0
+        -- Nome: player_movement_speed
+        -- Binding time: execução
+        -- Propriedade: valor
+        -- Explicação: Seu valor é alterado em tempo de execução , pois cada vez que o player morre seu valor é modificado
       high_score = player.body.size
     end
 
@@ -188,6 +218,11 @@ function love.load ()
 
   -- Jogador colidindo com as paredes.
   function playerWallCollision ()
+
+    	-- Nome: '-'
+      -- Binding time: compilação
+      -- Propriedade: semantica
+    	-- Explicação: A subtração é definido em tempo de compilação do programa de acordo com o tipo valores da subtração
 
     if player.pos.current.x <= 10 or player.pos.current.x >= screenWidth-10 - default_block_size  or player.pos.current.y <= 20  or player.pos.current.y >= screenHeight-10 -default_block_size then
       player.body.speed = 0
