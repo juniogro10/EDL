@@ -12,7 +12,7 @@ screenHeight = love.graphics.getHeight()
 default_block_size = 20
 
 -- Pontuação máxima.
-high_score = 0
+--high_score = 0
 
 -- Flag de Gameover.
 gameover = false
@@ -26,6 +26,9 @@ o_ten_one = require "o-ten-one"
 
 -- Flag de Carregamento
 loading = true
+
+-- Trabalho 06: Tupla
+high_score = {'Hight Score' , 0}
 
 function love.load ()
 
@@ -49,7 +52,8 @@ function love.load ()
   love.graphics.setColor(0,0, 0)
 
   -- Define os limites do cenário na tela. ( Xi , Yi )
-  -- Trabalho 06: Registro
+
+  -- Trabalho 06: Array
   scenarioLimits = {
     10,20,
     10,screenHeight-10,
@@ -78,12 +82,13 @@ function love.load ()
       size = 0,
       speed = 1400,
       gap = 1,
-      -- Trabalho 06: Array
       blocks = {}
     }
   }
 
+
   food = {
+    -- Trabalho 06: Registro
     pos = {
       x = nil,
       y = nil
@@ -208,7 +213,7 @@ function love.load ()
         -- Binding time: execução
         -- Propriedade: valor
         -- Explicação: Seu valor é alterado em tempo de execução , pois cada vez que o player morre seu valor é modificado
-      high_score = player.body.size
+      high_score[2] = player.body.size
     end
 
 
@@ -216,8 +221,8 @@ function love.load ()
 
   -- Atualiza o placar do jogo.
   function updatescore()
-    if(player.body.size > high_score) then
-      high_score = player.body.size
+    if(player.body.size > high_score[2]) then
+      high_score[2] = player.body.size
     end
   end
 
@@ -319,7 +324,7 @@ function love.load ()
     --Desenho do status
     love.graphics.print("Body Size " .. tostring(player.body.size) , 5, 5)
     love.graphics.print("Speed " .. tostring(player.body.speed) , 150, 5)
-    love.graphics.print("High Score " .. tostring(high_score) , screenWidth-150, 5)
+    love.graphics.print(tostring(high_score[1]) .. ' '.. tostring(high_score[2]) , screenWidth-150, 5)
 
     -- Mostra a posição do Jogador.
     if (debug == true) then
