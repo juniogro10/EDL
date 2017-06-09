@@ -27,7 +27,7 @@ o_ten_one = require "o-ten-one"
 -- Flag de Carregamento
 loading = true
 
--- Trabalho 06: Tupla
+-- Trabalho 06: hight_score é uma Tupla - Guardando uma string e um inteiro.
 high_score = {'Hight Score' , 0}
 
 function love.load ()
@@ -42,7 +42,7 @@ function love.load ()
   -- Sons do Jogo.
   sound_eating =  love.audio.newSource("eating.wav", "static")
 
-  -- Trabalho 06: Enumeracao
+  -- Trabalho 06: "static" é uma Enumeracao
   sound_gameover = love.audio.newSource("gameover.wav", "static")
 
   -- Inicializa a Cor do Cenário
@@ -53,7 +53,7 @@ function love.load ()
 
   -- Define os limites do cenário na tela. ( Xi , Yi )
 
-  -- Trabalho 06: Array
+  
   scenarioLimits = {
     10,20,
     10,screenHeight-10,
@@ -82,13 +82,14 @@ function love.load ()
       size = 0,
       speed = 1400,
       gap = 1,
+	-- Trabalho 06: blocks é um Array, podendo conter indeterminadas posições com blocos(Parte do corpo do snake).
       blocks = {}
     }
   }
 
 
   food = {
-    -- Trabalho 06: Registro
+    -- Trabalho 06: pos é um registro .Tendo acesso ao pos.x e pos.y.
     pos = {
       x = nil,
       y = nil
