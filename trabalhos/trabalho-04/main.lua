@@ -53,7 +53,7 @@ function love.load ()
 
   -- Define os limites do cenário na tela. ( Xi , Yi )
 
-  
+
   scenarioLimits = {
     10,20,
     10,screenHeight-10,
@@ -82,6 +82,15 @@ function love.load ()
       size = 0,
       speed = 1400,
       gap = 1,
+
+
+  -- Trabalho 07 :   --[[ blocks = {} Um array que está sendo construído, onde guardará o corpo do snake --]]
+  --[[
+  Escopo: O array blocks é uma variável global, que pode ser visto em qualquer parte do código.
+  Tempo de vida: O array é zerado toda vezes que a função load é carrega , sendo sua duração enquanto o programa estiver em execução
+  Alocação: Aumentada dinamicamente quando ocorre a colisão com a comida.Sua alocação ocorre na função na love.load()
+  Desalocação: Ocorre o desalocamento quando o programa é encerrado.
+  --]]
 	-- Trabalho 06: blocks é um Array, podendo conter indeterminadas posições com blocos(Parte do corpo do snake).
       blocks = {}
     }
@@ -163,7 +172,7 @@ function love.load ()
       -- Explicação: Por ser um varievel local , tendo o seu  escopo limitado a playerAddBlock.Seu endereço somente é definido em tempo execução
 
     -- Estrutura do Novo Bloco.
-    new_block = {
+    new_block = { -- Trabalho 07 : Função responsável pela a criação de um novo objeto para a coleção. 
       pos = {
         x = x,
         y = y
@@ -275,7 +284,7 @@ function love.load ()
       playerWallCollision()
 
       -- Verifica a colisão entre player e seus blocos do corpo.
-      for i,block in ipairs(player.body.blocks) do
+      for i,block in ipairs(player.body.blocks) do -- Trabalho 07: Esse loop corre a verificação se o snake colide com o objeto.
         if (blockCollision(player,block) == true) then
           player.body.speed = 0
           gameOver()
@@ -285,22 +294,31 @@ function love.load ()
       -- Colisão entre player e comida.
       if (blockCollision(player,food)) then
 
-        tail = playerAddBlock(player.pos.previous.x , player.pos.previous.y)
+        tail = playerAddBlock(player.pos.previous.x , player.pos.previous.y) -- Trabalho 07 : Função responsável por criação de um novo objeto , quando ocorre a colisão do snake com a comida.
 
         love.audio.play( sound_eating )
         respawnPlayerFood()
 
       else
 
-        tail = table.remove(player.body.blocks,player.body.size)
+        tail = table.remove(player.body.blocks,player.body.size) -- Trabalho 07 : Nesta linha ocorre o desalocamento do objeto para o deslocamento do corpo na tela
 
         tail.pos.x = player.pos.previous.x
         tail.pos.y = player.pos.previous.y
       end
 
-      -- Funcionamento do FILO ( First In Last Out )
-      table.insert(player.body.blocks,1,tail)
 
+
+      -- Funcionamento do FILO ( First In Last Out )
+      table.insert(player.body.blocks,1,tail) -- Trabalho 07 : Nesta linha ocorre adição do objeto na coleção
+        --[[
+        Escopo: Como o array que o objeto sera inserido é global , por consequencia ele tambem será global.
+        Tempo de vida: Os objetos presente no array blocks duram ate ocorra o encerramento do programa ou o deslocamento do snake na tela.
+        Alocação: A alocação ocorre na linha
+          tail = playerAddBlock(player.pos.previous.x , player.pos.previous.y)  ou tail.pos.x = player.pos.previous.x , tail.pos.y = player.pos.previous.y
+          Dependendo da situação do if , ja inserção ocrre na linha table.insert(player.body.blocks,1,tail).
+        Desalocação: O desalocamento ocorre quando ocorre um deslocamento do snake na tela.No codigo : tail = table.remove(player.body.blocks,player.body.size).
+        --]]
       -- Atualiza a pontuação.
       updatescore()
 
