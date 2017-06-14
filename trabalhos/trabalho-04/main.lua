@@ -30,6 +30,45 @@ loading = true
 -- Trabalho 06: hight_score é uma Tupla - Guardando uma string e um inteiro.
 high_score = {'Hight Score' , 0}
 
+
+-- Trabalho 08 - Closure e coroutine
+function f_food (x,y,live)
+    local food;
+    food = {
+        move = function (new_x,new_y)
+             x = new_x
+             y = new_y
+             return x, y
+        end,
+        get = function ()
+             return x, y
+        end,
+        isAlive = function()
+          return live
+        end,
+        setLive = function (_live)
+          live = _live
+          return live
+        end,
+        -- Trabalho 08: anda com a comida da morte,caso somente a cabeça colide com a comida o jogo acaba
+        walk_deatch = coroutine.create(function (dt)
+            while true do
+                local _x_direction = 1
+                local _y_direction = 0
+                local _move_x = x + (_x_direction*(player.body.speed)*dt)
+
+                if(_move_x > screenWidth-70) then
+                  food.move(50, y)
+                else
+                  food.move(_move_x,y)
+                end
+                dt = coroutine.yield()
+            end
+        end),
+    }
+    return food
+end
+
 function love.load ()
 
   -- Carregamento da Lib de splashscreen
@@ -80,7 +119,7 @@ function love.load ()
     },
     body = {
       size = 0,
-      speed = 1400,
+      speed = 1500,
       gap = 1,
 
 
@@ -97,14 +136,18 @@ function love.load ()
   }
 
 
-  food = {
-    -- Trabalho 06: pos é um registro .Tendo acesso ao pos.x e pos.y.
-    pos = {
-      x = nil,
-      y = nil
-    },
-    isAlive = false
-  }
+  -- food = {
+  --   -- Trabalho 06: pos é um registro .Tendo acesso ao pos.x e pos.y.
+  --   pos = {
+  --     x = nil,
+  --     y = nil
+  --   },
+  --   isAlive = false
+  -- }
+
+  -- Trabalho 08 : Criação da comida usando o closure
+  food = f_food(nil,nil,false)
+  food_deatch = f_food(50,150,true);
 
   print("Criei Corpo do Player! : " .. tostring(player.body.size) .. "    x: " .. tostring(player.pos.current.x) .. "    y: " .. tostring(player.pos.current.y))
 
@@ -172,7 +215,7 @@ function love.load ()
       -- Explicação: Por ser um varievel local , tendo o seu  escopo limitado a playerAddBlock.Seu endereço somente é definido em tempo execução
 
     -- Estrutura do Novo Bloco.
-    new_block = { -- Trabalho 07 : Função responsável pela a criação de um novo objeto para a coleção. 
+    new_block = { -- Trabalho 07 : Função responsável pela a criação de um novo objeto para a coleção.
       pos = {
         x = x,
         y = y
@@ -198,10 +241,14 @@ function love.load ()
   -- Atualiza a posição da Comida.
   function respawnPlayerFood()
 
-    food.pos.x = love.math.random(20, screenWidth - 30)
-    food.pos.y = love.math.random(20, screenHeight - 30)
 
-    food.isAlive = true
+    -- Trabalho 08 : Utilizando o closure para mover e atualizar o status da Comida
+    food.move(love.math.random(20, screenWidth - 30),love.math.random(20, screenHeight - 30))
+    food.setLive(true);
+    -- food.pos.x = love.math.random(20, screenWidth - 30)
+    -- food.pos.y = love.math.random(20, screenHeight - 30)
+
+    -- food.isAlive = true
 
   end
 
@@ -251,8 +298,16 @@ function love.load ()
     end
   end
 
+  --Jogador colidindo com alguma comida
+  function foodCollision(player , food)
+    -- Trabalho 08
+    local _x_food,_y_food = food.get()
+    return ( player.pos.current.x + default_block_size >= _x_food ) and ( player.pos.current.x <= _x_food + default_block_size) and ( player.pos.current.y + default_block_size >= _y_food) and ( player.pos.current.y <= _y_food + default_block_size )
+  end
+
   -- Jogador colidindo com algum outro bloco
   function blockCollision (player, block)
+
     return ( player.pos.current.x + default_block_size >= block.pos.x ) and ( player.pos.current.x <= block.pos.x + default_block_size) and ( player.pos.current.y + default_block_size >= block.pos.y) and ( player.pos.current.y <= block.pos.y + default_block_size )
   end
 
@@ -260,6 +315,7 @@ function love.load ()
 
     -- Splash Screen sendo executada
     if loading then
+
       splash:update(dt)
       return true
     end
@@ -291,8 +347,16 @@ function love.load ()
         end
       end
 
+      -- Trabalho 08 :  Executa a coroutine
+      coroutine.resume(food_deatch.walk_deatch, dt)
+
+      if(foodCollision(player,food_deatch)) then
+        player.body.speed = 0
+        gameOver()
+      end
+
       -- Colisão entre player e comida.
-      if (blockCollision(player,food)) then
+      if (foodCollision(player,food)) then
 
         tail = playerAddBlock(player.pos.previous.x , player.pos.previous.y) -- Trabalho 07 : Função responsável por criação de um novo objeto , quando ocorre a colisão do snake com a comida.
 
@@ -321,6 +385,7 @@ function love.load ()
         --]]
       -- Atualiza a pontuação.
       updatescore()
+
 
     end
   end
@@ -363,9 +428,20 @@ function love.load ()
       drawPlayer()
 
       -- Desenho da Comida.
-      if (food.isAlive) then
+      if (food_deatch.isAlive()) then
+        -- Trabalho 08
+        local _x_food,_y_food = food_deatch.get()
+        love.graphics.setColor(105,0,3)
+        love.graphics.rectangle( "fill", _x_food, _y_food, default_block_size, default_block_size )
+      end
+
+
+      -- Desenho da Comida.
+      if (food.isAlive()) then
+        -- Trabalho 08
+        local _x_food,_y_food = food.get()
         love.graphics.setColor(0,0,255)
-        love.graphics.rectangle( "fill", food.pos.x, food.pos.y, default_block_size, default_block_size )
+        love.graphics.rectangle( "fill", _x_food, _y_food, default_block_size, default_block_size )
       end
 
       if(gameover) then
