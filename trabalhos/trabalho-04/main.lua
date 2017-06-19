@@ -53,16 +53,23 @@ function f_food (x,y,live)
         -- Trabalho 08: anda com a comida da morte,caso somente a cabeça colide com a comida o jogo acaba
         walk_deatch = coroutine.create(function (dt)
             while true do
-                local _x_direction = 1
-                local _y_direction = 0
-                local _move_x = x + (_x_direction*(player.body.speed)*dt)
-
-                if(_move_x > screenWidth-70) then
-                  food.move(50, y)
-                else
-                  food.move(_move_x,y)
-                end
+              for i=1, 5 do
+                food.move( x + (player.body.speed*dt),  y+ 0)
                 dt = coroutine.yield()
+              end
+              for i=1, 5 do
+                food.move(x+ 0, y + player.body.speed*dt)
+                dt = coroutine.yield()
+              end
+              for i=1, 5 do
+                food.move( -player.body.speed*dt + x, y+0)
+                dt = coroutine.yield()
+              end
+              for i=1, 5 do
+                food.move(x+ 0, -player.body.speed*dt + y)
+                dt = coroutine.yield()
+              end
+
             end
         end),
     }
