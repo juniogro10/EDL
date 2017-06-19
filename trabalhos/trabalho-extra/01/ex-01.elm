@@ -44,7 +44,6 @@ medias = List.map media turma
 
 -- b) LISTA COM OS NOMES DOS ALUNOS DE "turma" APROVADOS (["Maria", ...])
 mediaaprovada: Aluno -> Bool
-mediaaprovada m = (media m) >= 7 
 mediaaprovadas = List.filter mediaaprovada turma
 
 aprovados: List String
@@ -59,10 +58,44 @@ size_turma: Float
 size_turma = toFloat(List.length turma)
 
 total: Float
-total = lista_media_soma / size_turma 
+total = lista_media_soma / size_turma
+
+
+-- d) LISTA DE ALUNOS QUE GABARITARAM A P1 ([("Maria",10,8), ...])
+gabarito: Aluno -> Bool
+gabarito (_,n1,_) = n1 == 10
+turma_gabarito = List.filter gabarito turma
+
+
+-- e) LISTA COM OS NOMES E MEDIAS DOS ALUNOS APROVADOS ([("Maria",9), ...])
+
+aluno_medias: Aluno -> (String,Float)
+aluno_medias amp = (nome amp,media amp)
+
+aprovados_nome_nota: List (String , Float)
+aprovados_nome_nota = List.map aluno_medias mediaaprovadas
+
+-- f) LISTA COM TODAS AS NOTAS DE TODAS AS PROVAS ([7,4,10,8,...])
+
+notap1: Aluno -> Float
+notap1 (_,n1,_) = n1
+notap1s: List Float
+notap1s = List.map notap1 turma
+
+
+notap2: Aluno -> Float
+notap2 (_,_,n2) = n2
+notap2s: List Float
+notap2s = List.map notap2 turma
+
+
+lista_prova = List.map2 (,) notap1s notap2s
 
 -- É permitido usar funções auxiliares, mas não é necessário.
 -- (As soluções são pequenas.)
 --main = text (toString medias)
 --main = text (toString aprovados)
-main = text (toString total)
+--main = text (toString total)
+--main = text (toString turma_gabarito)
+--main = text (toString aprovados_nome_nota)
+main = text (toString lista_prova)
